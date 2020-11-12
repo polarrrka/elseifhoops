@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import MenuItem from '../menu-item/MenuItem'
 import './Directory.styles.scss'
 
@@ -37,18 +37,28 @@ const Directory = () => {
     linkUrl: 'shop/mens'
   }
 ])
+
+useEffect(() => {
+  setSection(prevSec => {
+    const newSec = [...prevSec]
+    return newSec
+  })
+},[])
+
   return (
     <div className="directory-menu">
-      {setSection(section.map(({title, imageUrl, size, id}) => (
-        <MenuItem
-          key={id}
-          title={title}
-          imageUrl={imageUrl}
-          size={size} />
-      )))
-
+      {section.map((item, index) => {
+        return(
+          <MenuItem
+            index={index}
+            key={item.id}
+            id={item.id}
+            title={item.title}
+            imageUrl={item.imageUrl}
+            size={item.size} />
+          )
+        })
       }
-      
     </div>
   )
 }
